@@ -7,6 +7,18 @@ parameters:
 			path: public/index.php
 
 		-
+			message: '#^Property App\\Entity\\Fruit\:\:\$id \(int\|null\) is never assigned int so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/Entity/Fruit.php
+
+		-
+			message: '#^Property App\\Entity\\Vegetable\:\:\$id \(int\|null\) is never assigned int so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/Entity/Vegetable.php
+
+		-
 			message: '#^Call to an undefined method object\:\:getManager\(\)\.$#'
 			identifier: method.notFound
 			count: 1
