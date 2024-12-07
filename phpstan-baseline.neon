@@ -5,3 +5,57 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: public/index.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getManager\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/DatabaseTestCase.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getMetadataFactory\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/DatabaseTestCase.php
+
+		-
+			message: '#^Cannot call method getAllMetadata\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/DatabaseTestCase.php
+
+		-
+			message: '#^Cannot call method getContainer\(\) on Symfony\\Component\\HttpKernel\\KernelInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/DatabaseTestCase.php
+
+		-
+			message: '#^Cannot call method getEnvironment\(\) on Symfony\\Component\\HttpKernel\\KernelInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/DatabaseTestCase.php
+
+		-
+			message: '#^Parameter \#1 \$classes of method Doctrine\\ORM\\Tools\\SchemaTool\:\:updateSchema\(\) expects array\<mixed\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/DatabaseTestCase.php
+
+		-
+			message: '#^Parameter \#1 \$em of class Doctrine\\ORM\\Tools\\SchemaTool constructor expects Doctrine\\ORM\\EntityManagerInterface, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/DatabaseTestCase.php
+
+		-
+			message: '#^Parameter \#1 \$kernel of method App\\Tests\\DatabaseTestCase\:\:initDatabase\(\) expects Symfony\\Component\\HttpKernel\\KernelInterface, Symfony\\Component\\HttpKernel\\KernelInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/DatabaseTestCase.php
+
+		-
+			message: '#^Property App\\Tests\\DatabaseTestCase\:\:\$entityManager \(Doctrine\\ORM\\EntityManagerInterface\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: tests/DatabaseTestCase.php
