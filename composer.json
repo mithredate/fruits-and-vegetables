@@ -85,7 +85,9 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "phpstan": "@php ./vendor/bin/phpstan analyse",
+        "phpstan:generate-baseline": "@php ./vendor/bin/phpstan analyse --generate-baseline phpstan-baseline.neon"
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -97,6 +99,7 @@
         }
     },
     "require-dev": {
+        "phpstan/phpstan": "^2.0",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "7.2.*",
         "symfony/css-selector": "7.2.*",
