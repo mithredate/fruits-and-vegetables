@@ -16,8 +16,10 @@ final class FruitBuilder
 
     public function __construct()
     {
+        $faker = \Faker\Factory::create();
+        $faker->addProvider(new \FakerRestaurant\Provider\en_US\Restaurant($faker));
         $this->id = random_int(1000, 9999);
-        $this->name = bin2hex(random_bytes(random_int(10, 100)));
+        $this->name = $faker->fruitName();
         $this->quantity = random_int(1, 100);
         $this->unit = random_int(0, 1) > 0 ? Unit::KiloGram : Unit::Gram;
     }
