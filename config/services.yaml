@@ -28,6 +28,8 @@ services:
       public: true
     App\Service\RequestParser:
       public: true
+    App\Service\CreateFruitService:
+      public: true
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
