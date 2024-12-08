@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Tests\Functional\Service;
+namespace App\Tests\Integration\Service;
 
 use App\Entity\Fruit;
 use App\Entity\Vegetable;

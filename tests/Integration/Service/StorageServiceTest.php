@@ -42,4 +42,24 @@ class StorageServiceTest extends DatabaseTestCase
 
         $this->assertCount(10, $vegetableRepository->findAll());
     }
+
+    #[Test]
+    public function it_should_parse_input_file(): void
+    {
+        $request = (string) file_get_contents('request.json');
+        /** @var StorageService $sut */
+        $sut = static::getcontainer()->get(StorageService::class);
+
+        $sut->store($request);
+
+        /** @var FruitRepository $fruitRepository */
+        $fruitRepository = static::getContainer()->get(FruitRepository::class);
+
+        $this->assertSame(10, $fruitRepository->count());
+
+        /** @var VegetableRepository $vegetableRepository */
+        $vegetableRepository = static::getContainer()->get(VegetableRepository::class);
+
+        $this->assertSame(10, $vegetableRepository->count());
+    }
 }
