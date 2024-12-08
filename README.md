@@ -3,13 +3,18 @@
 This project implements a service that processes a JSON file, categorizes items into Fruits and Vegetables, and provides functionalities to add, remove, list, and query these collections. The service also includes API endpoints for interaction with the collections.
 
 ---
+### 🖥️ Requirements
+- PHP 8.2 or 8.3
+- Composer
+- Symfony CLI
 
 ## 🎯 Goals
 
 1. **Process JSON Input**:
     - Parse the `request.json` file to categorize items into two collections: `Fruits` and `Vegetables`.
-    - Store items in units of grams.
+    - Store items in units of grams
     - This is only accessible in tests `\App\Tests\Integration\Service\StorageServiceTest`
+    - The service is used to seed testing data
     - Tests store the collection in an in-memory Sqlite DB using Doctrine
 
 2. **Collections Functionality**:
@@ -51,11 +56,19 @@ This project implements a service that processes a JSON file, categorizes items 
     ```bash
    composer install
     ```
-3. **Seed Testing Data**
+4. **Update .env**
+    ```dotenv
+   DATABASE_URL="sqlite:///%kernel.project_dir%/data/database.db"
+    ```
+4. **Migrate DB**
+    ```dotenv
+   php bin/console doctrine:migration:migrate
+    ```
+5. **Seed Testing Data**
     ```bash
    php bin/console doctrine:fixtures:load
     ```
-4. **Run the application**
+6. **Run the application**
    ```bash
    symfony server:start
    ```
@@ -65,13 +78,14 @@ This project implements a service that processes a JSON file, categorizes items 
 
 ### Retrieving fruits/vegetables list with search and specific units
 ```bash
-curl --location 'http://localhost:8000/api/v1/fruits?unit=kg&search=app&unit=kg' \
+curl --location 'http://localhost:8000/api/v1/fruits?unit=kg&search=app&unit=kg'
 curl --location 'http://localhost:8000/api/v1/vegetables'
 ```
 
-### Retrieve specific fruit
+### Retrieve specific fruit/vegetable
 ```bash
 curl --location 'http://localhost:8000/api/v1/fruits/3?unit=kg'
+curl --location 'http://localhost:8000/api/v1/vegetables/3'
 ```
 
 ### Create a new fruit
@@ -100,3 +114,18 @@ curl --location --request PUT 'http://localhost:8000/api/v1/fruits/3' \
 ```bash
 curl --location --request DELETE 'http://localhost:8000/api/v1/fruits/3'
 ```
+---
+
+## ✔️ Testing
+### PHPUnit Tests:
+```bash
+./bin/phpunit
+```
+
+There's currently one deprecation warning when running tests, but nothing critical.
+
+## 🤝 Contributions
+No need to bother :)
+
+📜 License
+This project is licensed under the MIT License.
