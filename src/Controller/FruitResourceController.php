@@ -8,6 +8,7 @@ use App\Controller\Request\FruitDto;
 use App\Controller\Serializer\FruitSerializer;
 use App\Entity\Fruit;
 use App\Service\CreateFruitService;
+use App\Service\DeleteFruitService;
 use App\Service\SearchFruitService;
 use App\Utils\Unit;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,6 +24,7 @@ final class FruitResourceController
     public function __construct(
         private readonly CreateFruitService $createFruitService,
         private readonly SearchFruitService $searchFruitService,
+        private readonly DeleteFruitService $deleteFruitService,
     ) {
     }
 
@@ -62,5 +64,13 @@ final class FruitResourceController
         $serializer = new FruitSerializer();
 
         return new JsonResponse($serializer->serialize($fruit), Response::HTTP_CREATED);
+    }
+
+    #[Route(path: 'fruits/{id}', name: 'fruits_delete', methods: ['DELETE'])]
+    public function delete(Fruit $fruit): JsonResponse
+    {
+        $this->deleteFruitService->execute($fruit);
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }
