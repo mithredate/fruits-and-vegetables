@@ -11,6 +11,7 @@ use App\Tests\DataFixtures\VegetableBuilder;
 use App\Tests\FunctionalTestCase;
 use App\Utils\Unit;
 use PHPUnit\Framework\Attributes\CoversClass;
+use Symfony\Component\HttpFoundation\Request;
 
 #[CoversClass(VegetableResourceController::class)]
 final class VegetablesShowTest extends FunctionalTestCase
@@ -18,7 +19,7 @@ final class VegetablesShowTest extends FunctionalTestCase
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_should_return_not_found_when_missing(): void
     {
-        $this->client->request('GET', $this->generateUrl('vegetables_show', ['id' => 1]));
+        $this->client->request(Request::METHOD_GET, $this->generateUrl('vegetables_show', ['id' => 1]));
 
         $this->assertResponseStatusCodeSame(404);
     }
@@ -34,7 +35,10 @@ final class VegetablesShowTest extends FunctionalTestCase
         $this->entityManager->persist($vegetable);
         $this->entityManager->flush();
 
-        $this->client->request('GET', $this->generateUrl('vegetables_show', ['id' => $vegetable->getId()]));
+        $this->client->request(
+            Request::METHOD_GET,
+            $this->generateUrl('vegetables_show', ['id' => $vegetable->getId()])
+        );
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/json');

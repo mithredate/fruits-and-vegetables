@@ -10,8 +10,10 @@ use App\Entity\Fruit;
 use App\Service\CreateFruitService;
 use App\Service\DeleteFruitService;
 use App\Service\SearchFruitService;
+use App\Service\UpdateFruitService;
 use App\Utils\Unit;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
@@ -25,6 +27,7 @@ final class FruitResourceController
         private readonly CreateFruitService $createFruitService,
         private readonly SearchFruitService $searchFruitService,
         private readonly DeleteFruitService $deleteFruitService,
+        private readonly UpdateFruitService $updateFruitService,
     ) {
     }
 
@@ -70,6 +73,16 @@ final class FruitResourceController
     public function delete(Fruit $fruit): JsonResponse
     {
         $this->deleteFruitService->execute($fruit);
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+    }
+
+    #[Route(path: 'fruits/{id}', name: 'fruits_update', methods: [Request::METHOD_PUT])]
+    public function update(Fruit $fruit, #[MapRequestPayload(
+        validationFailedStatusCode: Response::HTTP_BAD_REQUEST
+    )] FruitDto $fruitDto): JsonResponse
+    {
+        $this->updateFruitService->execute($fruit, $fruitDto);
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }

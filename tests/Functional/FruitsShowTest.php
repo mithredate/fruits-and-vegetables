@@ -9,6 +9,8 @@ use App\Tests\DataFixtures\FruitBuilder;
 use App\Tests\FunctionalTestCase;
 use App\Utils\Unit;
 use PHPUnit\Framework\Attributes\CoversClass;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 #[CoversClass(FruitResourceController::class)]
 final class FruitsShowTest extends FunctionalTestCase
@@ -16,9 +18,9 @@ final class FruitsShowTest extends FunctionalTestCase
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_should_return_not_found_when_missing(): void
     {
-        $this->client->request('GET', $this->generateUrl('fruits_show', ['id' => 1]));
+        $this->client->request(Request::METHOD_GET, $this->generateUrl('fruits_show', ['id' => 1]));
 
-        $this->assertResponseStatusCodeSame(404);
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
@@ -32,7 +34,7 @@ final class FruitsShowTest extends FunctionalTestCase
         $this->entityManager->persist($fruit);
         $this->entityManager->flush();
 
-        $this->client->request('GET', $this->generateUrl('fruits_show', ['id' => $fruit->getId()]));
+        $this->client->request(Request::METHOD_GET, $this->generateUrl('fruits_show', ['id' => $fruit->getId()]));
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/json');
@@ -55,7 +57,7 @@ final class FruitsShowTest extends FunctionalTestCase
         $this->entityManager->persist($fruit);
         $this->entityManager->flush();
 
-        $this->client->request('GET', $this->generateUrl(
+        $this->client->request(Request::METHOD_GET, $this->generateUrl(
             'fruits_show',
             ['id' => $fruit->getId()]
         ), ['unit' => Unit::KiloGram->value]);

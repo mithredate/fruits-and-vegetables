@@ -11,6 +11,7 @@ use App\Tests\DataFixtures\VegetableBuilder;
 use App\Tests\FunctionalTestCase;
 use App\Utils\Unit;
 use PHPUnit\Framework\Attributes\CoversClass;
+use Symfony\Component\HttpFoundation\Request;
 
 #[CoversClass(VegetableResourceController::class)]
 final class VegetablesIndexTest extends FunctionalTestCase
@@ -18,7 +19,7 @@ final class VegetablesIndexTest extends FunctionalTestCase
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_should_return_empty_response_when_nothing_found(): void
     {
-        $this->client->request('GET', $this->generateUrl('vegetables_index'));
+        $this->client->request(Request::METHOD_GET, $this->generateUrl('vegetables_index'));
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/json');
@@ -37,7 +38,7 @@ final class VegetablesIndexTest extends FunctionalTestCase
         $this->entityManager->persist($vegetable);
         $this->entityManager->flush();
 
-        $this->client->request('GET', $this->generateUrl('vegetables_index'));
+        $this->client->request(Request::METHOD_GET, $this->generateUrl('vegetables_index'));
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/json');
