@@ -18,7 +18,7 @@ final class FruitSerializer extends JsonSerializer
     {
         assert($fruit instanceof Fruit);
 
-        $format = $this->unit === Unit::Gram ? '%d' : '%4.3f';
+        $format = Unit::Gram === $this->unit ? '%d' : '%4.3f';
 
         return [
             'id' => $fruit->getId(),

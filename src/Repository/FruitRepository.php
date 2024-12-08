@@ -7,7 +7,6 @@ namespace App\Repository;
 use App\Entity\Fruit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use phpDocumentor\Reflection\PseudoTypes\NonEmptyString;
 
 /** @extends ServiceEntityRepository<Fruit> */
 final class FruitRepository extends ServiceEntityRepository
@@ -19,6 +18,7 @@ final class FruitRepository extends ServiceEntityRepository
 
     /**
      * @param non-empty-string $search
+     *
      * @return list<Fruit>
      */
     public function findByName(string $search): array

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Service;
 
@@ -7,7 +9,6 @@ use App\Repository\FruitRepository;
 
 final class SearchFruitService
 {
-
     public function __construct(private readonly FruitRepository $fruitRepository)
     {
     }
@@ -15,7 +16,7 @@ final class SearchFruitService
     /** @return list<Fruit> */
     public function execute(string $search = ''): array
     {
-        return $search === ''
+        return '' === $search
             ? $this->fruitRepository->findAll()
             : $this->fruitRepository->findByName($search);
     }

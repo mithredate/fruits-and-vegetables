@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Controller\Request\ApiConfigurationDto;
 use App\Controller\Request\FruitDto;
 use App\Controller\Serializer\FruitSerializer;
 use App\Entity\Fruit;
@@ -34,9 +33,8 @@ final class FruitResourceController
         )] Unit $unit = Unit::Gram,
         #[MapQueryParameter(
             validationFailedStatusCode: Response::HTTP_NOT_FOUND
-        )] string $search = ''
-    ): JsonResponse
-    {
+        )] string $search = '',
+    ): JsonResponse {
         $fruits = $this->searchFruitService->execute($search);
 
         $serializer = new FruitSerializer($unit);
