@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -14,8 +16,7 @@ final class FruitIndexController
 {
     public function __construct(
         private readonly FruitRepository $fruitRepository,
-        private readonly FruitSerializer $fruitSerializer
-
+        private readonly FruitSerializer $fruitSerializer,
     ) {
     }
 

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Service;
 
@@ -36,7 +38,7 @@ final class StorageService
     /** @param Collection<array-key, Vegetable> $vegetables */
     private function storeVegetables(Collection $vegetables): void
     {
-        $vegetables->forEach(function (vegetable $vegetable): void {
+        $vegetables->forEach(function (Vegetable $vegetable): void {
             $this->entityManager->persist($vegetable);
         });
     }

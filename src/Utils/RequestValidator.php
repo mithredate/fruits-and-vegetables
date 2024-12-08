@@ -1,8 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Utils;
 
-use Opis\JsonSchema\Errors\ErrorFormatter;
 use Opis\JsonSchema\Helper;
 use Opis\JsonSchema\Validator;
 
@@ -21,9 +22,8 @@ final class RequestValidator
             ],
             'required' => ['id', 'name', 'quantity', 'unit', 'type'],
             'additionalProperties' => false,
-        ]
+        ],
     ];
-
 
     /** @param array<array-key, mixed> $data */
     public function passes(array $data): bool

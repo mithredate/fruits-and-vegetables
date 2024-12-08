@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Service;
 
@@ -23,13 +25,13 @@ final class RequestParser
             throw new \InvalidArgumentException('Request body is not valid JSON.');
         }
 
-        if (! $this->requestValidator->passes($decoded)) {
+        if (!$this->requestValidator->passes($decoded)) {
             throw new \InvalidArgumentException('Request body is not valid JSON.');
         }
 
         $allRecords = new Collection($decoded);
 
-        $fruits = $allRecords->filter(fn (array $item) => ItemType::tryFrom($item['type']) === ItemType::Fruit)
+        $fruits = $allRecords->filter(fn (array $item) => ItemType::Fruit === ItemType::tryFrom($item['type']))
             ->map(function (array $item): Fruit {
                 $fruit = new Fruit();
                 $fruit->setName((string) $item['name']);
@@ -38,7 +40,7 @@ final class RequestParser
                 return $fruit;
             });
 
-        $vegetables = $allRecords->filter(fn (array $item) => ItemType::tryFrom($item['type']) === ItemType::Vegetable)
+        $vegetables = $allRecords->filter(fn (array $item) => ItemType::Vegetable === ItemType::tryFrom($item['type']))
             ->map(function (array $item): Vegetable {
                 $vegetable = new Vegetable();
                 $vegetable->setName((string) $item['name']);

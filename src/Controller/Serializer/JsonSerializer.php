@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controller\Serializer;
 
@@ -12,12 +14,14 @@ abstract class JsonSerializer extends TransformerAbstract
 {
     /**
      * @param T $entity
+     *
      * @return array<string, mixed>
      */
     abstract public function transform(object $entity): array;
 
     /**
      * @param T $entity
+     *
      * @return array<string, mixed>
      */
     public function serialize(object $entity): array
@@ -30,6 +34,7 @@ abstract class JsonSerializer extends TransformerAbstract
 
     /**
      * @param list<T> $entities
+     *
      * @return array{data: array<string, mixed>}
      */
     public function serializeCollection(array $entities): array

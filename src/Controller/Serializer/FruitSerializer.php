@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controller\Serializer;
 
@@ -11,15 +13,16 @@ final class FruitSerializer extends JsonSerializer
     public function transform(object $fruit): array
     {
         assert($fruit instanceof Fruit);
+
         return [
-            'id'      => $fruit->getId(),
-            'name'   => $fruit->getName(),
-            'quantity'    => sprintf('%d %s', $fruit->getQuantity(), Unit::Gram->value),
-            'links'   => [
+            'id' => $fruit->getId(),
+            'name' => $fruit->getName(),
+            'quantity' => sprintf('%d %s', $fruit->getQuantity(), Unit::Gram->value),
+            'links' => [
                 [
                     'rel' => 'self',
                     'uri' => "/fruits/{$fruit->getId()}",
-                ]
+                ],
             ],
         ];
     }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Dto;
 
@@ -9,12 +11,12 @@ use App\Utils\Collection;
 final class Request
 {
     /**
-     * @param Collection<array-key, Fruit> $fruits
+     * @param Collection<array-key, Fruit>     $fruits
      * @param Collection<array-key, Vegetable> $vegetables
      */
     public function __construct(
         public readonly Collection $fruits,
-        public readonly Collection $vegetables
+        public readonly Collection $vegetables,
     ) {
     }
 }

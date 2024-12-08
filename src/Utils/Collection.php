@@ -1,13 +1,15 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Utils;
 
-use Traversable;
-
 /**
- * Immutable Collection
+ * Immutable Collection.
+ *
  * @template TKey of array-key
  * @template TValue
+ *
  * @implements \IteratorAggregate<TKey, TValue>
  * @implements \ArrayAccess<TKey, TValue>
  */
@@ -20,11 +22,12 @@ final class Collection implements \IteratorAggregate, \Countable, \ArrayAccess
 
     public function isEmpty(): bool
     {
-        return $this->items === [];
+        return [] === $this->items;
     }
 
     /**
      * @param TValue $value
+     *
      * @return self<TKey|int, TValue>
      */
     public function add(mixed $value): self
@@ -34,6 +37,7 @@ final class Collection implements \IteratorAggregate, \Countable, \ArrayAccess
 
     /**
      * @param TValue $value
+     *
      * @return self<TKey, TValue>
      */
     public function set(int|string $key, mixed $value): self
@@ -70,7 +74,9 @@ final class Collection implements \IteratorAggregate, \Countable, \ArrayAccess
 
     /**
      * @template TNewValue
+     *
      * @param \Closure(TValue): TNewValue $callback
+     *
      * @return self<TKey, TNewValue)
      */
     public function map(\Closure $callback): self
@@ -78,7 +84,7 @@ final class Collection implements \IteratorAggregate, \Countable, \ArrayAccess
         return new self(array_map($callback, $this->items));
     }
 
-    public function getIterator(): Traversable
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->items);
     }
@@ -90,6 +96,7 @@ final class Collection implements \IteratorAggregate, \Countable, \ArrayAccess
 
     /**
      * @param \Closure(TValue): bool $criteria
+     *
      * @return self<TKey, TValue>
      */
     public function filter(\Closure $criteria): self
