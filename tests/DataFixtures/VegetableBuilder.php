@@ -26,6 +26,20 @@ final class VegetableBuilder
         $this->unit = random_int(0, 1) > 0 ? Unit::KiloGram : Unit::Gram;
     }
 
+    public function withId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function withName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     /** @param positive-int $quantity */
     public function withQuantity(int $quantity): self
     {
