@@ -123,4 +123,19 @@ final class Collection implements \IteratorAggregate, \Countable, \ArrayAccess
     {
         throw new \BadMethodCallException('Unable to unset values on collection using array set');
     }
+
+    /**
+     * @param \Closure(TValue, TKey): bool $criteria
+     * @return TValue|null
+     */
+    public function first(\Closure $criteria): mixed
+    {
+        foreach ($this->items as $key => $value) {
+            if ($criteria($value, $key)) {
+                return $value;
+            }
+        }
+
+        return null;
+    }
 }

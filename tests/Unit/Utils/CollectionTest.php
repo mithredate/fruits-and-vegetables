@@ -151,4 +151,14 @@ final class CollectionTest extends TestCase
 
         $this->assertNull($sut['missing']);
     }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_should_search_inside_the_collection(): void
+    {
+        $sut = new Collection(['key' => [1, 2], 'key2' => [4, 5], 'key3' => [3]]);
+
+        $actual = $sut->first(fn (array $values) => array_sum($values) === 3);
+
+        $this->assertsame([1, 2], $actual);
+    }
 }
