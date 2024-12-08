@@ -90,7 +90,10 @@
         ],
         "phpstan": "@php ./vendor/bin/phpstan analyse",
         "phpstan:generate-baseline": "@php ./vendor/bin/phpstan analyse --generate-baseline phpstan-baseline.neon",
-        "php-cs-fixer:fix": "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src"
+        "php-cs-fixer": "tools/php-cs-fixer/vendor/bin/php-cs-fixer check",
+        "php-cs-fixer:fix": "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix",
+        "phpcs": "tools/phpcs/vendor/bin/phpcs",
+        "phpcs:fix": "tools/phpcs/vendor/bin/phpcbf"
     },
     "conflict": {
         "symfony/symfony": "*"

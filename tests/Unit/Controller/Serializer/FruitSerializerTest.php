@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Tests\Unit\Controller\Serializer;
 
@@ -24,7 +26,12 @@ final class FruitSerializerTest extends TestCase
 
         $actual = $serializer->serialize($fruit);
 
-        $expected = ['data' => ['id' => 12, 'name' => 'Apple', 'quantity' => '2000 g', 'links' => [['rel' => 'self', 'uri' => '/fruits/12']]]];
+        $expected = ['data' => [
+            'id' => 12,
+            'name' => 'Apple',
+            'quantity' => '2000 g',
+            'links' => [['rel' => 'self', 'uri' => '/fruits/12']],
+        ]];
 
         $this->assertEquals($expected, $actual);
     }
