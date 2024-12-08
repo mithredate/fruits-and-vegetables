@@ -39,8 +39,8 @@ final class FruitsShowTest extends FunctionalTestCase
 
         $jsonContent = (string) $this->client->getResponse()->getContent();
         $this->assertJsonStringEqualsJsonString(
+            '{"data":{"id":1,"name":"Apple","quantity":"2000 g","links":[{"rel":"self","uri":"\/fruits\/1"}]}}',
             $jsonContent,
-            '{"data":{"id":1,"name":"Apple","quantity":"2000 g","links":[{"rel":"self","uri":"\/fruits\/1"}]}}'
         );
     }
 
@@ -62,8 +62,8 @@ final class FruitsShowTest extends FunctionalTestCase
 
         $jsonContent = (string) $this->client->getResponse()->getContent();
         $this->assertJsonStringEqualsJsonString(
+            '{"data":{"id":1,"name":"Apple","quantity":"0.020 kg","links":[{"rel":"self","uri":"\/fruits\/1"}]}}',
             $jsonContent,
-            '{"data":{"id":1,"name":"Apple","quantity":"0.02 kg","links":[{"rel":"self","uri":"\/fruits\/1"}]}}'
         );
     }
 }

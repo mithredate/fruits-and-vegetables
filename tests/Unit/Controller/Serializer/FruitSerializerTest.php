@@ -29,7 +29,7 @@ final class FruitSerializerTest extends TestCase
         $expected = ['data' => [
             'id' => 12,
             'name' => 'Apple',
-            'quantity' => '2000.000 g',
+            'quantity' => '2000 g',
             'links' => [['rel' => 'self', 'uri' => '/fruits/12']],
         ]];
 

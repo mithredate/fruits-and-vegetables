@@ -23,7 +23,7 @@ final class VegetablesIndexTest extends FunctionalTestCase
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/json');
         $jsonContent = (string) $this->client->getResponse()->getContent();
-        $this->assertJsonStringEqualsJsonString($jsonContent, '{"data":[]}');
+        $this->assertJsonStringEqualsJsonString('{"data":[]}', $jsonContent);
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
@@ -44,8 +44,8 @@ final class VegetablesIndexTest extends FunctionalTestCase
 
         $jsonContent = (string) $this->client->getResponse()->getContent();
         $this->assertJsonStringEqualsJsonString(
+            '{"data":[{"id":1,"name":"Cabbage","quantity":"2000 g","links":[{"rel":"self","uri":"\/vegetables\/1"}]}]}',
             $jsonContent,
-            '{"data":[{"id":1,"name":"Cabbage","quantity":"2000 g","links":[{"rel":"self","uri":"\/vegetables\/1"}]}]}'
         );
     }
 }

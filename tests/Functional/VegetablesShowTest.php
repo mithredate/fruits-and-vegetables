@@ -41,8 +41,8 @@ final class VegetablesShowTest extends FunctionalTestCase
 
         $jsonContent = (string) $this->client->getResponse()->getContent();
         $this->assertJsonStringEqualsJsonString(
+            '{"data":{"id":1,"name":"Cabbage","quantity":"2000 g","links":[{"rel":"self","uri":"\/vegetables\/1"}]}}',
             $jsonContent,
-            '{"data":{"id":1,"name":"Cabbage","quantity":"2000 g","links":[{"rel":"self","uri":"\/vegetables\/1"}]}}'
         );
     }
 }

@@ -21,7 +21,7 @@ final class FruitsIndexTest extends FunctionalTestCase
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/json');
         $jsonContent = (string) $this->client->getResponse()->getContent();
-        $this->assertJsonStringEqualsJsonString($jsonContent, '{"data":[]}');
+        $this->assertJsonStringEqualsJsonString('{"data":[]}', $jsonContent);
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
@@ -42,8 +42,31 @@ final class FruitsIndexTest extends FunctionalTestCase
 
         $jsonContent = (string) $this->client->getResponse()->getContent();
         $this->assertJsonStringEqualsJsonString(
+            '{"data":[{"id":1,"name":"Apple","quantity":"2000 g","links":[{"rel":"self","uri":"\/fruits\/1"}]}]}',
             $jsonContent,
-            '{"data":[{"id":1,"name":"Apple","quantity":"2000 g","links":[{"rel":"self","uri":"\/fruits\/1"}]}]}'
+        );
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_should_search_by_name(): void
+    {
+        $fruit = (new FruitBuilder())
+            ->withName('Apple')
+            ->withQuantity(2)
+            ->withUnit(Unit::KiloGram)
+            ->build();
+        $this->entityManager->persist($fruit);
+        $this->entityManager->flush();
+
+        $this->client->request('GET', '/fruits', ['search' => 'pp']);
+
+        $this->assertResponseIsSuccessful();
+        $this->assertResponseHeaderSame('content-type', 'application/json');
+
+        $jsonContent = (string) $this->client->getResponse()->getContent();
+        $this->assertJsonStringEqualsJsonString(
+            '{"data":[{"id":1,"name":"Apple","quantity":"2000 g","links":[{"rel":"self","uri":"\/fruits\/1"}]}]}',
+            $jsonContent,
         );
     }
 
@@ -65,8 +88,8 @@ final class FruitsIndexTest extends FunctionalTestCase
 
         $jsonContent = (string) $this->client->getResponse()->getContent();
         $this->assertJsonStringEqualsJsonString(
+            '{"data":[{"id":1,"name":"Apple","quantity":"2.000 kg","links":[{"rel":"self","uri":"\/fruits\/1"}]}]}',
             $jsonContent,
-            '{"data":[{"id":1,"name":"Apple","quantity":"2 kg","links":[{"rel":"self","uri":"\/fruits\/1"}]}]}'
         );
     }
 }

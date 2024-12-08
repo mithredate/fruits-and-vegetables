@@ -8,14 +8,13 @@ use App\Controller\Request\ApiConfigurationDto;
 use App\Controller\Request\FruitDto;
 use App\Controller\Serializer\FruitSerializer;
 use App\Entity\Fruit;
-use App\Repository\FruitRepository;
 use App\Service\CreateFruitService;
+use App\Service\SearchFruitService;
 use App\Utils\Unit;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
-use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,17 +22,23 @@ use Symfony\Component\Routing\Annotation\Route;
 final class FruitResourceController
 {
     public function __construct(
-        private readonly FruitRepository $fruitRepository,
         private readonly CreateFruitService $createFruitService,
+        private readonly SearchFruitService $searchFruitService,
     ) {
     }
 
     #[Route(path: 'fruits', name: 'fruits_index', methods: ['GET'])]
-    public function index(#[MapQueryParameter(
-        validationFailedStatusCode: Response::HTTP_NOT_FOUND
-    )] Unit $unit = Unit::Gram): JsonResponse
+    public function index(
+        #[MapQueryParameter(
+            validationFailedStatusCode: Response::HTTP_NOT_FOUND
+        )] Unit $unit = Unit::Gram,
+        #[MapQueryParameter(
+            validationFailedStatusCode: Response::HTTP_NOT_FOUND
+        )] string $search = ''
+    ): JsonResponse
     {
-        $fruits = $this->fruitRepository->findAll();
+        $fruits = $this->searchFruitService->execute($search);
+
         $serializer = new FruitSerializer($unit);
 
         return new JsonResponse($serializer->serializeCollection($fruits), Response::HTTP_OK);
@@ -56,9 +61,8 @@ final class FruitResourceController
     {
         $fruit = $this->createFruitService->execute($fruitDto);
 
-        return new JsonResponse(
-            $this->fruitSerializer->serialize($fruit),
-            Response::HTTP_CREATED
-        );
+        $serializer = new FruitSerializer();
+
+        return new JsonResponse($serializer->serialize($fruit), Response::HTTP_CREATED);
     }
 }

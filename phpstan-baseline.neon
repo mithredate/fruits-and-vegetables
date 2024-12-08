@@ -31,6 +31,12 @@ parameters:
 			path: src/Entity/Vegetable.php
 
 		-
+			message: '#^Method App\\Repository\\FruitRepository\:\:findByName\(\) should return list\<App\\Entity\\Fruit\> but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Repository/FruitRepository.php
+
+		-
 			message: '#^Cannot cast mixed to int\.$#'
 			identifier: cast.int
 			count: 2

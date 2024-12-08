@@ -18,10 +18,12 @@ final class FruitSerializer extends JsonSerializer
     {
         assert($fruit instanceof Fruit);
 
+        $format = $this->unit === Unit::Gram ? '%d' : '%4.3f';
+
         return [
             'id' => $fruit->getId(),
             'name' => $fruit->getName(),
-            'quantity' => sprintf('%4.3f %s', $this->unit->fromGrams($fruit->getQuantity()), $this->unit->value),
+            'quantity' => sprintf("{$format} %s", $this->unit->fromGrams($fruit->getQuantity()), $this->unit->value),
             'links' => [
                 [
                     'rel' => 'self',
