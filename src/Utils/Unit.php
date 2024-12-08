@@ -16,4 +16,12 @@ enum Unit: string
             self::KiloGram => $value * 1000,
         };
     }
+
+    public function fromGrams(int $value): float
+    {
+        return match($this) {
+            self::Gram => $value,
+            self::KiloGram => $value / 1000.0,
+        };
+    }
 }

@@ -10,6 +10,10 @@ use App\Utils\Unit;
 /** @extends JsonSerializer<Fruit> */
 final class FruitSerializer extends JsonSerializer
 {
+    public function __construct(private readonly Unit $unit = Unit::Gram)
+    {
+    }
+
     public function transform(object $fruit): array
     {
         assert($fruit instanceof Fruit);
@@ -17,7 +21,7 @@ final class FruitSerializer extends JsonSerializer
         return [
             'id' => $fruit->getId(),
             'name' => $fruit->getName(),
-            'quantity' => sprintf('%d %s', $fruit->getQuantity(), Unit::Gram->value),
+            'quantity' => sprintf('%4.3f %s', $this->unit->fromGrams($fruit->getQuantity()), $this->unit->value),
             'links' => [
                 [
                     'rel' => 'self',

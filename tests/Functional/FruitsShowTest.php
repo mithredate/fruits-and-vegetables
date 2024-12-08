@@ -43,4 +43,27 @@ final class FruitsShowTest extends FunctionalTestCase
             '{"data":{"id":1,"name":"Apple","quantity":"2000 g","links":[{"rel":"self","uri":"\/fruits\/1"}]}}'
         );
     }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_should_return_response_in_kg_if_requested(): void
+    {
+        $fruit = (new FruitBuilder())
+            ->withName('Apple')
+            ->withQuantity(20)
+            ->withUnit(Unit::Gram)
+            ->build();
+        $this->entityManager->persist($fruit);
+        $this->entityManager->flush();
+
+        $this->client->request('GET', '/fruits/1', ['unit' => Unit::KiloGram->value]);
+
+        $this->assertResponseIsSuccessful();
+        $this->assertResponseHeaderSame('content-type', 'application/json');
+
+        $jsonContent = (string) $this->client->getResponse()->getContent();
+        $this->assertJsonStringEqualsJsonString(
+            $jsonContent,
+            '{"data":{"id":1,"name":"Apple","quantity":"0.02 kg","links":[{"rel":"self","uri":"\/fruits\/1"}]}}'
+        );
+    }
 }
