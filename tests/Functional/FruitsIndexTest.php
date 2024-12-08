@@ -16,7 +16,7 @@ final class FruitsIndexTest extends FunctionalTestCase
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_should_return_empty_response_when_nothing_found(): void
     {
-        $this->client->request('GET', '/fruits');
+        $this->client->request('GET', $this->generateUrl('fruits_index'));
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/json');
@@ -35,7 +35,7 @@ final class FruitsIndexTest extends FunctionalTestCase
         $this->entityManager->persist($fruit);
         $this->entityManager->flush();
 
-        $this->client->request('GET', '/fruits');
+        $this->client->request('GET', $this->generateUrl('fruits_index'));
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/json');
@@ -58,7 +58,7 @@ final class FruitsIndexTest extends FunctionalTestCase
         $this->entityManager->persist($fruit);
         $this->entityManager->flush();
 
-        $this->client->request('GET', '/fruits', ['search' => 'pp']);
+        $this->client->request('GET', $this->generateUrl('fruits_index'), ['search' => 'pp']);
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/json');
@@ -81,7 +81,7 @@ final class FruitsIndexTest extends FunctionalTestCase
         $this->entityManager->persist($fruit);
         $this->entityManager->flush();
 
-        $this->client->request('GET', '/fruits', ['unit' => Unit::KiloGram->value]);
+        $this->client->request('GET', $this->generateUrl('fruits_index'), ['unit' => Unit::KiloGram->value]);
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/json');

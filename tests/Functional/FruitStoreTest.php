@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional;
 
-use App\Entity\Fruit;
 use App\Repository\FruitRepository;
 use App\Tests\DataFixtures\FruitBuilder;
 use App\Tests\FunctionalTestCase;
@@ -15,7 +14,7 @@ final class FruitStoreTest extends FunctionalTestCase
     public function it_should_create_fruit_when_data_is_valid(): void
     {
         $fruitData = (new FruitBuilder())->buildArray();
-        $this->client->request('POST', '/fruits', [
+        $this->client->request('POST', $this->generateUrl('fruits_store'), [
             'name' => $fruitData['name'],
             'quantity' => $fruitData['quantity'],
             'unit' => $fruitData['unit'],
@@ -31,7 +30,7 @@ final class FruitStoreTest extends FunctionalTestCase
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_should_return_bad_request_for_invalid_data(): void
     {
-        $this->client->request('POST', '/fruits');
+        $this->client->request('POST', $this->generateUrl('fruits_store'));
 
         $this->assertResponseStatusCodeSame(400);
     }
@@ -40,7 +39,7 @@ final class FruitStoreTest extends FunctionalTestCase
     public function it_should_return_bad_request_for_invalid_unit(): void
     {
         $fruitData = (new FruitBuilder())->buildArray();
-        $this->client->request('POST', '/fruits', [
+        $this->client->request('POST', $this->generateUrl('fruits_store'), [
             'name' => $fruitData['name'],
             'quantity' => $fruitData['quantity'],
             'unit' => 'invalid',

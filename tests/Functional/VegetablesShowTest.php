@@ -18,7 +18,7 @@ final class VegetablesShowTest extends FunctionalTestCase
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_should_return_not_found_when_missing(): void
     {
-        $this->client->request('GET', '/vegetables/1');
+        $this->client->request('GET', $this->generateUrl('vegetables_show', ['id' => 1]));
 
         $this->assertResponseStatusCodeSame(404);
     }
@@ -34,7 +34,7 @@ final class VegetablesShowTest extends FunctionalTestCase
         $this->entityManager->persist($vegetable);
         $this->entityManager->flush();
 
-        $this->client->request('GET', '/vegetables/1');
+        $this->client->request('GET', $this->generateUrl('vegetables_show', ['id' => $vegetable->getId()]));
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/json');

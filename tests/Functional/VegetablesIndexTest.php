@@ -18,7 +18,7 @@ final class VegetablesIndexTest extends FunctionalTestCase
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_should_return_empty_response_when_nothing_found(): void
     {
-        $this->client->request('GET', '/vegetables');
+        $this->client->request('GET', $this->generateUrl('vegetables_index'));
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/json');
@@ -37,7 +37,7 @@ final class VegetablesIndexTest extends FunctionalTestCase
         $this->entityManager->persist($vegetable);
         $this->entityManager->flush();
 
-        $this->client->request('GET', '/vegetables');
+        $this->client->request('GET', $this->generateUrl('vegetables_index'));
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/json');
