@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller\Serializer;
 
-use App\Entity\Fruit;
 use App\Entity\Vegetable;
 use App\Utils\Unit;
 

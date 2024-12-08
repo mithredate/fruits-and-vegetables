@@ -77,7 +77,7 @@ final class Collection implements \IteratorAggregate, \Countable, \ArrayAccess
      *
      * @param \Closure(TValue): TNewValue $callback
      *
-     * @return self<TKey, TNewValue)
+     * @return self<TKey, TNewValue>
      */
     public function map(\Closure $callback): self
     {

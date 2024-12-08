@@ -7,6 +7,18 @@ parameters:
 			path: public/index.php
 
 		-
+			message: '#^Method App\\Controller\\Serializer\\JsonSerializer\:\:serialize\(\) should return array\<string, mixed\> but returns array\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Controller/Serializer/JsonSerializer.php
+
+		-
+			message: '#^Method App\\Controller\\Serializer\\JsonSerializer\:\:serializeCollection\(\) should return array\{data\: array\<string, mixed\>\} but returns array\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Controller/Serializer/JsonSerializer.php
+
+		-
 			message: '#^Property App\\Entity\\Fruit\:\:\$id \(int\|null\) is never assigned int so it can be removed from the property type\.$#'
 			identifier: property.unusedType
 			count: 1
@@ -17,6 +29,66 @@ parameters:
 			identifier: property.unusedType
 			count: 1
 			path: src/Entity/Vegetable.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 2
+			path: src/Service/RequestParser.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 4
+			path: src/Service/RequestParser.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method App\\Utils\\Collection\<\(int\|string\),mixed\>\:\:map\(\) expects Closure\(mixed\)\: App\\Entity\\Fruit, Closure\(array\)\: App\\Entity\\Fruit given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Service/RequestParser.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method App\\Utils\\Collection\<\(int\|string\),mixed\>\:\:map\(\) expects Closure\(mixed\)\: App\\Entity\\Vegetable, Closure\(array\)\: App\\Entity\\Vegetable given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Service/RequestParser.php
+
+		-
+			message: '#^Parameter \#1 \$criteria of method App\\Utils\\Collection\<\(int\|string\),mixed\>\:\:filter\(\) expects Closure\(mixed\)\: bool, Closure\(array\)\: bool given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Service/RequestParser.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method App\\Utils\\ItemType\:\:tryFrom\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Service/RequestParser.php
+
+		-
+			message: '#^Call to an undefined method Faker\\Generator\:\:fruitName\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/DataFixtures/FruitBuilder.php
+
+		-
+			message: '#^Property App\\Tests\\DataFixtures\\FruitBuilder\:\:\$name \(string\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: tests/DataFixtures/FruitBuilder.php
+
+		-
+			message: '#^Call to an undefined method Faker\\Generator\:\:vegetableName\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/DataFixtures/VegetableBuilder.php
+
+		-
+			message: '#^Property App\\Tests\\DataFixtures\\VegetableBuilder\:\:\$name \(string\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: tests/DataFixtures/VegetableBuilder.php
 
 		-
 			message: '#^Call to an undefined method object\:\:getManager\(\)\.$#'
@@ -71,3 +143,57 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: tests/DatabaseTestCase.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getManager\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/FunctionalTestCase.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getMetadataFactory\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/FunctionalTestCase.php
+
+		-
+			message: '#^Cannot call method getAllMetadata\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/FunctionalTestCase.php
+
+		-
+			message: '#^Cannot call method getContainer\(\) on Symfony\\Component\\HttpKernel\\KernelInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/FunctionalTestCase.php
+
+		-
+			message: '#^Cannot call method getEnvironment\(\) on Symfony\\Component\\HttpKernel\\KernelInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/FunctionalTestCase.php
+
+		-
+			message: '#^Parameter \#1 \$classes of method Doctrine\\ORM\\Tools\\SchemaTool\:\:updateSchema\(\) expects array\<mixed\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/FunctionalTestCase.php
+
+		-
+			message: '#^Parameter \#1 \$em of class Doctrine\\ORM\\Tools\\SchemaTool constructor expects Doctrine\\ORM\\EntityManagerInterface, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/FunctionalTestCase.php
+
+		-
+			message: '#^Parameter \#1 \$kernel of method App\\Tests\\FunctionalTestCase\:\:initDatabase\(\) expects Symfony\\Component\\HttpKernel\\KernelInterface, Symfony\\Component\\HttpKernel\\KernelInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/FunctionalTestCase.php
+
+		-
+			message: '#^Property App\\Tests\\FunctionalTestCase\:\:\$entityManager \(Doctrine\\ORM\\EntityManagerInterface\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: tests/FunctionalTestCase.php
